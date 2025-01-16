@@ -201,10 +201,10 @@ const UsersCards = () => {
               <div className="mb-2 bg-emerald-900 h-[20vh]">
                 {user.images && user.images.length > 0 ? (
                   <div className="flex gap-2 overflow-x-auto">
-                    {user.images.map((images, index) => (
+                    {user.images.map((image, index) => (
                       <img
                         key={index}
-                        src={images}
+                        src={`http://${import.meta.env.VITE_PUBLIC_HOST}:${import.meta.env.VITE_PUBLIC_PORT}/${image.substring(image.indexOf('uploads'))}`}
                         alt={`Foto ${index + 1}`}
                         className="w-16 h-16 object-cover rounded-md"
                       />
