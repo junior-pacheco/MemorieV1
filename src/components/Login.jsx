@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
@@ -7,6 +7,7 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const {login} = useAuthStore();
+  const token = useAuthStore(state => state.token)
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
@@ -14,6 +15,14 @@ const Login = () => {
     login(data);
 
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate('/users')
+    }
+  }, [token])
+  
+  
 
   return (
     <div className="min-h-screen p-4 flex items-center justify-center bg-black">

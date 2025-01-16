@@ -1,7 +1,6 @@
 import {create} from 'zustand';
 import { persist } from 'zustand/middleware';
 import Axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
 
 const axios = Axios.create({baseURL: `http://${import.meta.env.VITE_PUBLIC_HOST}:${import.meta.env.VITE_PUBLIC_PORT}`});
 
@@ -12,11 +11,10 @@ const useAuthStore = create(
       login: async (credentials) => {
         set({ loading: true, error: null });
         await axios.post(`auth/login`, credentials)
-        .then(({data : {result}}) => {
+        .then(({data: {result}}) => {
           console.log('result', result)
-            // const navigate = useNavigate()
-            set({token: result.token});
-            // navigate('/users')
+          set({token: result.token});
+            // set({token: result.token});
           })
           .catch((error) => {
             console.log(error);
@@ -25,13 +23,16 @@ const useAuthStore = create(
             set({ loading: false });
           });
       },
+      logout: () => {
+        set({ token: null }); 
+      },
     }),
     {
       name: 'auth-store',
-      storage: {
-        getItem: (key) => localStorage.getItem(key),
-        setItem: (key, value) => localStorage.setItem(key, value),
-      },
+      // storage: {
+      //   getItem: (key) => localStorage.getItem(key),
+      //   setItem: (key, value) => localStorage.setItem(key, value),
+      // },
     },
   ),
 );
