@@ -20,7 +20,7 @@ const Login = () => {
     if (token) {
       navigate('/users')
     }
-  }, [token])
+  }, [navigate, token])
   
   
 
