@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react'
+import  { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import useProfileStore from '../store/profileStore'
 
 const ProfilePage = () => {
-
   const {readProfileId} = useProfileStore()
   const {profileId} = useParams()
   const profile = useProfileStore((state) => state.profile);
-
-
 
   useEffect(() => {
     readProfileId(profileId);
@@ -19,9 +16,9 @@ const ProfilePage = () => {
           <div className="container mx-auto px-4 py-8 max-w-4xl">
           <div className="flex flex-col items-center mb-6 sm:flex-row sm:items-start">
 
-            <div className="text-center sm:text-left">
+            <div className="text-center sm:text-left bg-red-500">
               <h1 className="text-2xl font-bold mb-2 capitalize">{profile.name}</h1>
-              <p className="text-muted-foreground text-pretty">{profile.description}</p>
+              <p className=" text-pretty">{profile.description}</p>
             </div>
           </div>
 

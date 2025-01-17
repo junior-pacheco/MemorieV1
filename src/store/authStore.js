@@ -12,9 +12,7 @@ const useAuthStore = create(
         set({ loading: true, error: null });
         await axios.post(`auth/login`, credentials)
         .then(({data: {result}}) => {
-          console.log('result', result)
           set({token: result.token});
-            // set({token: result.token});
           })
           .catch((error) => {
             console.log(error);
@@ -24,15 +22,12 @@ const useAuthStore = create(
           });
       },
       logout: () => {
-        set({ token: null }); 
+        set({ token: null });
+        localStorage.removeItem('auth-store');
       },
     }),
     {
-      name: 'auth-store',
-      // storage: {
-      //   getItem: (key) => localStorage.getItem(key),
-      //   setItem: (key, value) => localStorage.setItem(key, value),
-      // },
+      name: 'auth-store'
     },
   ),
 );
