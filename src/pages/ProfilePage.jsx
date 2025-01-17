@@ -16,7 +16,7 @@ const ProfilePage = () => {
           <div className="container mx-auto px-4 py-8 max-w-4xl">
           <div className="flex flex-col items-center mb-6 sm:flex-row sm:items-start">
 
-            <div className="text-center sm:text-left bg-red-500">
+            <div className="text-center sm:text-left">
               <h1 className="text-2xl font-bold mb-2 capitalize">{profile.name}</h1>
               <p className=" text-pretty">{profile.description}</p>
             </div>
