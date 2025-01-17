@@ -74,7 +74,7 @@ const deleteUser = async (userId) => {
         draggable
         theme="light"
       />
-        <header className="bg-black hadow-md rounded-lg p-4 mb-6 flex justify-between items-center">
+        <header className="bg-black hadow-md lg:rounded-lg 2xl:rounded-lg rounded-none p-4 mb-6 flex justify-between items-center">
           <img
             src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678be28f&is=678a910f&hm=1767d8c922a84971c307cfe189fe2ce05fb454b58faceaaa45641c8c425f452d&=&format=webp&quality=lossless"
             alt="Logo"
