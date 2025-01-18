@@ -63,7 +63,7 @@ const deleteUser = async (userId) => {
 
 
     return (
-      <div className="min-h-screen bg-black p-6">
+      <div className="min-h-screen bg-gradient-to-br from-[#191d22] via-[#264853] to-[#396c7a] p-6">
         <ToastContainer
         position="top-center"
         autoClose={2000}
@@ -74,7 +74,7 @@ const deleteUser = async (userId) => {
         draggable
         theme="light"
       />
-        <header className="bg-black hadow-md lg:rounded-lg 2xl:rounded-lg rounded-none p-4 mb-6 flex justify-between items-center">
+        <header className="p-4 mb-6 flex justify-between items-center">
           <img
             src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678be28f&is=678a910f&hm=1767d8c922a84971c307cfe189fe2ce05fb454b58faceaaa45641c8c425f452d&=&format=webp&quality=lossless"
             alt="Logo"
@@ -98,7 +98,7 @@ const deleteUser = async (userId) => {
             processedData.map((user) => (
               <div 
                 key={user.qrId} 
-                className="bg-white border-4 border-yellow-500 rounded-x 2xl:min-w-[380px] lg:min-w-[380px] rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105"
+                className="bg-[#ddeef0] rounded-x 2xl:min-w-[380px] lg:min-w-[380px] rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105"
               >
                 <div className="p-4">
                   <div className="flex justify-center items-center  mb-4">
@@ -115,7 +115,7 @@ const deleteUser = async (userId) => {
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-col space-y-2">
+                    <div className="flex ms-4 flex-col  space-y-2">
                       <button
                         onClick={() => deleteUser(user.qrId)}
                         className="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
@@ -124,48 +124,33 @@ const deleteUser = async (userId) => {
                       <svg className="transition-all transform active:translate-y-2"  xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"><path fill="white" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"/></svg>
                       </button>
                       <button
-  onClick={() => {
-    const link = document.createElement('a');
-    link.href = user.qr_code;
-    link.download = `QR_${user.qr_code_identifier || user.qrId}.png`;
-    link.click();
-    toast.success("QR descargado correctamente");
-  }}
-  className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors transform active:scale-95 focus:outline-none"
-  aria-label="Download QR code"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20px"
-    height="20px"
-    viewBox="0 0 24 24"
-    className="transition-all transform active:translate-y-2"
-  >
-    <path
-      fill="none"
-      stroke="white"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m4-5l5 5l5-5m-5 5V3"
-    />
-  </svg>
-</button>
-
-
-                      {/* <button
-                        onClick={() => {
-                          const link = document.createElement('a');
-                          link.href = user.qr_code;
-                          link.download = `QR_${user.qr_code_identifier || user.qrId}.png`;
-                          link.click();
-                          toast.success("qr descargado correctamente");
-                        }}
-                        className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
-                        aria-label="Download QR code"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"><path fill="none" stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m4-5l5 5l5-5m-5 5V3"/></svg>
-                      </button> */}
+                            onClick={() => {
+                              const link = document.createElement('a');
+                              link.href = user.qr_code;
+                              link.download = `QR_${user.qr_code_identifier || user.qrId}.png`;
+                              link.click();
+                              toast.success("QR descargado correctamente");
+                            }}
+                            className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors transform active:scale-95 focus:outline-none"
+                            aria-label="Download QR code"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20px"
+                              height="20px"
+                              viewBox="0 0 24 24"
+                              className="transition-all transform active:translate-y-2"
+                            >
+                              <path
+                                fill="none"
+                                stroke="white"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4m4-5l5 5l5-5m-5 5V3"
+                              />
+                            </svg>
+                      </button>
                     </div>
                   </div>
   

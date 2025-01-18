@@ -52,7 +52,7 @@ const QRScanner = () => {
   };
 
   const handleBackToForm = () => {
-    setIsProfileCreated(false)
+    navigate('/login')
   };
 
   return (
@@ -60,7 +60,7 @@ const QRScanner = () => {
       <div className="max-w-full mx-auto h-full">
         <div className="h-full">
           {isProfileCreated ? (
-            <div className="flex bg-black h-full justify-center items-center text-center">
+            <div className="flex bg-gradient-to-br from-[#191d22] via-[#264853] to-[#396c7a] h-full justify-center items-center text-center">
               <div className="p-6 rounded-lg w-full max-w-md">
                 <h2 className="text-3xl font-semibold text-white mb-4">Perfil Creado</h2>
                 <p className="text-xl text-[#f5f5f5f5] mb-6">
@@ -68,7 +68,7 @@ const QRScanner = () => {
                 </p>
                 <button
                   onClick={handleBackToForm}
-                  className="px-6 py-3 bg-white font-semibold text-black rounded-md shadow-md transition-colors duration-300"
+                  className="px-6 py-3 bg-[#6ba7b8] h-[50px] text-white font-bold transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg hover:bg-[#5a9eb3]"
                 >
                   Volver a crear otro perfil
                 </button>
@@ -77,10 +77,10 @@ const QRScanner = () => {
           ) : (
             <div className="md:flex h-full">
               {/* Sidebar */}
-              <div className="md:w-1/3 bg-black p-4 text-white rounded-r-3xl">
+              <div className="md:w-1/3 bg-gradient-to-br from-[#191d22] via-[#264853] to-[#396c7a] p-4 text-white">
                 <button
                   onClick={() => navigate("/login")}
-                  className="px-4 py-2 text-white bg-black rounded-md shadow-md hover:bg-[#5e6262] transition-colors"
+                  className="px-4 py-2 bg-[#6ba7b8] h-[40px] text-white font-bold transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg hover:bg-[#5a9eb3]"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
                     <path
@@ -91,16 +91,17 @@ const QRScanner = () => {
                 </button>
                 <img
                   src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678be28f&is=678a910f&hm=1767d8c922a84971c307cfe189fe2ce05fb454b58faceaaa45641c8c425f452d&=&format=webp&quality=lossless"
-                  className="h-20 rounded-lg mt-6 md:h-32 mx-auto w-[80%] mb-8"
+                  className="h-20 rounded-lg mt-6 2xl:mt-20 md:h-32 mx-auto w-[80%] mb-8"
                 />
-                <h2 className="text-xl md:text-2xl font-bold mb-4">Crear Perfil Del Difunto</h2>
+                <h2 className="text-xl md:text-2xl 2xl:mt-16 font-bold mb-4">Crear Perfil Del Difunto</h2>
                 <p className="opacity-75 text-base md:text-lg">
-                  Honra la memoria de tu ser querido creando un perfil conmemorativo. Comparte su historia, fotos y videos
-                  para mantener vivo su recuerdo.
-                </p>
+  Honra la memoria de tu ser querido creando un perfil conmemorativo único. Este espacio especial te permitirá compartir 
+  su historia, logros y momentos importantes de su vida. Añade fotos, videos, anécdotas y mensajes que reflejen su legado, 
+  creando un lugar donde amigos y familiares puedan recordar y celebrar su vida juntos
+</p>
               </div>
               {/* Formulario */}
-              <div className="md:w-2/3 p-4 flex 2xl:overflow-auto md:overflow-auto flex-col h-full overflow-y-auto">
+              <div className="md:w-2/3  bg-[#ddeef0] bg-opacity-20 backdrop-filter backdrop-blur-2xl p-4 flex 2xl:overflow-auto md:overflow-auto flex-col h-full overflow-y-auto">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 h-full">
                   {/* Inputs Nombre y Descripción */}
                   <div className="flex flex-col md:flex-row md:gap-4">
@@ -162,6 +163,7 @@ const QRScanner = () => {
                       />
                     </div>
                   </div>
+                    <h1 className='text-gray-500'>* Contacto de la persona que esta creado el perfil</h1>
                   <div className="flex flex-col md:flex-row md:gap-4">
                     {/* Phone */}
                     <div className="w-full md:w-1/2">
@@ -245,7 +247,7 @@ const QRScanner = () => {
     <div className="relative inline-block">
       <label
         htmlFor="file-upload"
-        className="cursor-pointer inline-flex items-center justify-center w-40 h-10 px-4 py-2 text-white bg-black rounded-md shadow-md"
+        className="cursor-pointer inline-flex items-center justify-center w-40 px-4 py-2 bg-[#6ba7b8] h-[50px] text-white font-bold transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg hover:bg-[#5a9eb3] "
       >
         Subir foto
       </label>
@@ -305,7 +307,7 @@ const QRScanner = () => {
     <div className="relative inline-block">
       <label
         htmlFor="file-upload"
-        className="cursor-pointer inline-flex items-center justify-center w-40 h-10 px-4 py-2 text-white bg-black rounded-md shadow-md"
+        className="cursor-pointer inline-flex items-center justify-center w-40 px-4 py-2 bg-[#6ba7b8] h-[50px] text-white font-bold transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg hover:bg-[#5a9eb3]"
       >
         Subir video
       </label>
@@ -387,7 +389,7 @@ const QRScanner = () => {
                   </div>
                   {/* Botón Guardar */}
                   <div className="flex justify-center">
-                    <button type="submit" className="px-4 w-[40%] py-2 bg-black text-white transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg">
+                    <button type="submit" className="px-4 w-[40%] bg-[#6ba7b8] h-[50px] text-white font-bold transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg hover:bg-[#5a9eb3]">
                       Crear
                     </button>
                   </div>
