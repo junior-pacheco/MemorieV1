@@ -103,8 +103,8 @@ const QRScanner = () => {
                   src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678c8b4f&is=678b39cf&hm=bcd1d21432523dcfab7efac3fba83311d00845d1e0cef2fb9f4bb3b8d39cc51c&=&format=webp&quality=lossless"
                   className="h-20 rounded-lg mt-6 2xl:mt-20 md:h-32 mx-auto w-[80%] mb-8"
                 />
-                <h2 className="text-xl md:text-2xl 2xl:mt-16 font-bold mb-4">Crear Perfil Del Difunto</h2>
-                <p className="opacity-75 text-base md:text-lg">
+                <h2 className="text-xl md:text-2xl 2xl:mt-16 font-bold mb-4">Crear recuerdo para tú ser querido</h2>
+                <p className="opacity-75 text-base md:text-lg text-pretty">
   Honra la memoria de tu ser querido creando un perfil conmemorativo único. Este espacio especial te permitirá compartir 
   su historia, logros y momentos importantes de su vida. Añade fotos, videos, anécdotas y mensajes que reflejen su legado, 
   creando un lugar donde amigos y familiares puedan recordar y celebrar su vida juntos
