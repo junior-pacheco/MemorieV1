@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useAuthStore from '../store/authStore';
 import useUsersStore from '../store/userStorage';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
 
 const UsersCards = () => {
   const { getData } = useUsersStore();
@@ -12,6 +15,21 @@ const UsersCards = () => {
   const data = useUsersStore((state) => state.data || []);
   const token = useAuthStore((state) => state.token);
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Función para abrir el modal
+  const handleOpenModal = () => setIsModalOpen(true);
+
+  // Función para cerrar el modal
+  const handleCloseModal = () => setIsModalOpen(false);
+
+  // const handleConfirmDelete = (user) => {
+  //   console.log('user', user)
+  //   deleteUser(user.qrId);  // Llama a la función de eliminación
+  //   handleCloseModal();      // Cierra el modal después de eliminar
+  // };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,11 +90,11 @@ const deleteUser = async (userId) => {
         rtl={false}
         pauseOnFocusLoss
         draggable
-        theme="light"
+        theme="colored"
       />
         <header className="p-4 mb-6 flex justify-between items-center">
           <img
-            src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678be28f&is=678a910f&hm=1767d8c922a84971c307cfe189fe2ce05fb454b58faceaaa45641c8c425f452d&=&format=webp&quality=lossless"
+            src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678c8b4f&is=678b39cf&hm=bcd1d21432523dcfab7efac3fba83311d00845d1e0cef2fb9f4bb3b8d39cc51c&=&format=webp&quality=lossless"
             alt="Logo"
             className="h-12 w-auto rounded-lg"
           />
@@ -116,13 +134,52 @@ const deleteUser = async (userId) => {
                       )}
                     </div>
                     <div className="flex ms-4 flex-col  space-y-2">
-                      <button
+                      {/* <button
                         onClick={() => deleteUser(user.qrId)}
                         className="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
                         aria-label="Delete user"
                       >
                       <svg className="transition-all transform active:translate-y-2"  xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"><path fill="white" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"/></svg>
-                      </button>
+                      </button> */}
+                       <button
+        onClick={handleOpenModal}  // Abre el modal cuando se hace clic
+        className="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+        aria-label="Delete user"
+      >
+        <svg className="transition-all transform active:translate-y-2" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
+          <path fill="white" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"/>
+        </svg>
+      </button>
+      {/* Modal de confirmación usando react-modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseModal}
+        contentLabel="Confirmar eliminación"
+        className="flex justify-center items-center bg-black bg-opacity-10 h-full w-full"
+        overlayClassName="fixed inset-0 bg-opacity-90"
+      >
+        <div className="bg-[#ddeef0] p-6 rounded-lg shadow-lg md:w-[40%] 2xl:w-[35%] w-[70%]">
+          <h2 className="text-lg font-semibold">Confirmar eliminación</h2>
+          <p>¿Estás seguro de que deseas eliminar a este usuario?</p>
+          <div className="mt-4 flex justify-end space-x-4">
+            <button
+              onClick={handleCloseModal}
+              className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={() => { 
+                deleteUser(user.qrId),
+                handleCloseModal()
+              }}
+              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </Modal>
                       <button
                             onClick={() => {
                               const link = document.createElement('a');

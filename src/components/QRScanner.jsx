@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form';
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify';
 
 const QRScanner = () => {
   const { control, handleSubmit, reset } = useForm()
@@ -19,7 +20,6 @@ const QRScanner = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log('Datos enviados al servidor:', data)
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('description', data.description)
@@ -57,6 +57,16 @@ const QRScanner = () => {
 
   return (
     <div className="h-screen w-screen">
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        theme="colored"
+      />
       <div className="max-w-full mx-auto h-full">
         <div className="h-full">
           {isProfileCreated ? (
@@ -90,7 +100,7 @@ const QRScanner = () => {
                   </svg>
                 </button>
                 <img
-                  src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678be28f&is=678a910f&hm=1767d8c922a84971c307cfe189fe2ce05fb454b58faceaaa45641c8c425f452d&=&format=webp&quality=lossless"
+                  src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678c8b4f&is=678b39cf&hm=bcd1d21432523dcfab7efac3fba83311d00845d1e0cef2fb9f4bb3b8d39cc51c&=&format=webp&quality=lossless"
                   className="h-20 rounded-lg mt-6 2xl:mt-20 md:h-32 mx-auto w-[80%] mb-8"
                 />
                 <h2 className="text-xl md:text-2xl 2xl:mt-16 font-bold mb-4">Crear Perfil Del Difunto</h2>
@@ -264,7 +274,8 @@ const QRScanner = () => {
             );
 
             if (uniqueFiles.length + value.length > 8) {
-              alert("El límite es de 8 fotos");
+              toast.info("El límite es de 8 fotos")
+              // alert("El límite es de 8 fotos");
             } else {
               const updatedFiles = [...value, ...uniqueFiles];
               handleFilePreview(updatedFiles, "images");
@@ -273,7 +284,8 @@ const QRScanner = () => {
 
             // Si hay duplicados, muestra un mensaje sin bloquear la carga de otros archivos nuevos
             if (newFilesArray.length > uniqueFiles.length) {
-              alert("Algunas fotos ya han sido subidas y no se agregarán");
+              toast.info("Algunas fotos ya han sido subidas y no se agregarán")
+              // alert("Algunas fotos ya han sido subidas y no se agregarán");
             }
           }
         }}
@@ -320,13 +332,15 @@ const QRScanner = () => {
           if (newFile) {
             // Verificar si ya hay un video en el estado
             if (value.length > 0) {
-              alert("Ya has subido un video. Solo puedes subir uno.");
+              toast.info("Ya has subido un video. Solo puedes subir uno.")
+              // alert("Ya has subido un video. Solo puedes subir uno.");
               return;
             }
 
             // Verificar el tamaño del archivo
             if (newFile.size > 20 * 1024 * 1024) { // 20MB en bytes
-              alert("El video no puede ser mayor a 20MB");
+              // alert("El video no puede ser mayor a 20MB");
+              toast.info("El video no puede ser mayor a 20MB")
               return;
             }
 
@@ -335,7 +349,7 @@ const QRScanner = () => {
               (existingFile) => existingFile.name === newFile.name && existingFile.size === newFile.size
             );
             if (duplicate) {
-              alert("Este video ya ha sido subido.");
+              toast.info("Este video ya ha sido subido")
               return;
             }
 
@@ -346,9 +360,6 @@ const QRScanner = () => {
         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg"
       />
       {error && <p className="text-red-500 text-sm">{error.message}</p>} 
-      {value.length > 0 && (
-        <p className="text-blue-500 text-sm mt-2">Solo se puede subir un video</p>
-      )}
     </div>
   )}
 />

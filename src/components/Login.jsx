@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -11,7 +14,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log('data', data)
     login(data);
 
   };
@@ -19,11 +21,22 @@ const Login = () => {
   useEffect(() => {
     if (token) {
       navigate('/users')
+      toast.success("Usuario eliminado correctamente");
     }
   }, [navigate, token])
   
   return (
     <div className="min-h-screen p-4 flex items-center justify-center bg-gradient-to-br from-[#191d22] via-[#264853] to-[#396c7a]">
+        <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        theme="light"
+      />
       <div className="flex flex-col 2xl:flex-row md:flex-row justify-around 2xl:flex items-center md:flex 2xl:w-[60vw] md:w-[60vw] w-[90vw]">
         <div className=" bg-[#ddeef0] bg-opacity-10 backdrop-filter backdrop-blur-2xl 2xl:ml-28 m-0 md:m-[0px] rounded-2xl shadow-2xl w-full 2xl:w-[40%] md:w-[50%] overflow-hidden">
           {/* Logo and Title */}
