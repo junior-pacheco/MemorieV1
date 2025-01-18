@@ -11,6 +11,7 @@ const useUsersStore = create((set) => ({
     await axios.get('/qr-generation')
       .then(({data: {result}}) => {
         set({data: result})
+        
       })
       .catch((error) => {
         console.log(error);
