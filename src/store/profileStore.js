@@ -1,14 +1,11 @@
-import {create} from 'zustand';
-import Axios from 'axios';
-import useAuthStore from './authStore';
+import { create } from 'zustand';
+import memoriesApi from '../api/memories.api';
 
-const axios = Axios.create({baseURL: `http://${import.meta.env.VITE_PUBLIC_HOST}:${import.meta.env.VITE_PUBLIC_PORT}`});
 
-const useProfileStore = create((set) => ({
+export const storeApi = (set) => ({
   profile: null,
   readProfileId: async (profileId) => {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${useAuthStore.getState().token}`;
-    await axios.get(`/qr-generation/qr-data/${profileId}`)
+    memoriesApi.get(`/qr-generation/qr-data/${profileId}`)
       .then(({data: {result}}) => {
         console.log('result', result)
         set({profile: result})
@@ -16,7 +13,9 @@ const useProfileStore = create((set) => ({
       .catch((error) => {
         console.log(error);
       });
-  },
-}));
+  }
+})
+
+const useProfileStore = create(storeApi);
 
 export default useProfileStore;

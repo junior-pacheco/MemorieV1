@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useProfileStore from '../store/profileStore';
 import { WhatsappShareButton } from 'react-share';
@@ -27,9 +27,9 @@ const ProfilePage = () => {
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-12">
             <div className="flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-start mb-12">
               <div className="w-full">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-4 capitalize tracking-wide break-words">
-                {profile.name}
-              </h1>
+                <h1 className="text-3xl sm:text-4xl font-bold mb-4 capitalize tracking-wide break-words">
+                  {profile.name}
+                </h1>
                 <p className="text-lg sm:text-xl opacity-90 break-words leading-relaxed">
                   {profile.description}
                 </p>

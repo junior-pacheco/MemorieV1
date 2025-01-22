@@ -1,49 +1,34 @@
 import {create} from 'zustand';
-import { persist } from 'zustand/middleware';
-import Axios from 'axios';
-// import { toast, ToastContainer } from 'react-toastify';
+import { AuthService } from '../services/auth.service';
+import { devtools, persist } from 'zustand/middleware';
 
-const axios = Axios.create({baseURL: `http://${import.meta.env.VITE_PUBLIC_HOST}:${import.meta.env.VITE_PUBLIC_PORT}`});
+export const storeApi = (set) => ({
+  status: 'unauthorized',
+  token: undefined,
 
-// <ToastContainer
-// position="top-center"
-// autoClose={2000}
-// newestOnTop
-// closeOnClick
-// rtl={false}
-// pauseOnFocusLoss
-// draggable
-// theme="colored"
-// />
+  loginUser: async (userName, userPassword) => {
+    try {
+      const { data: {result} } = await AuthService.login(userName, userPassword);
+      set({status: 'authorized', token: result.token});
+    } catch (error) {
+      console.log(error);
+      set({status: 'unauthorized', token: undefined});
+    }
+  },
+  logoutUser: () => {
+    set({status: 'unauthorized', token: undefined});
+  }
+
+})
+
 
 const useAuthStore = create(
-  
-  persist(
-    (set) => ({
-      token: null,
-      login: async (credentials) => {
-        set({ loading: true, error: null });
-        await axios.post(`auth/login`, credentials)
-        .then(({data: {result}}) => {
-          set({token: result.token});
-          })
-          .catch((error) => {
-            // toast.error("Hubo un error");
-            console.log(error);
-          })
-          .finally(() => {
-            set({ loading: false });
-          });
-      },
-      logout: () => {
-        set({ token: null });
-        localStorage.removeItem('auth-store');
-      },
-    }),
-    {
-      name: 'auth-store'
-    },
-  ),
+  devtools(
+    persist(
+      storeApi,
+      {name: 'auth-store',}
+    )
+  )
 );
 
 export default useAuthStore;

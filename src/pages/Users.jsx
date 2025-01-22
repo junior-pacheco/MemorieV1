@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React,  { useEffect, useState } from 'react';
 import useAuthStore from '../store/authStore';
 import useUsersStore from '../store/userStorage';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import Modal from 'react-modal';
@@ -10,25 +8,33 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 const UsersCards = () => {
-  const { getData } = useUsersStore();
-  const { logout } = useAuthStore();
+  const  getData  = useUsersStore((state) => state.getData);
+  const  logoutUser  = useAuthStore((state) => state.logoutUser);
+  const deleteUser = useUsersStore((state) => state.deleteUser);
+
   const data = useUsersStore((state) => state.data || []);
-  const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
-  // Función para abrir el modal
-  const handleOpenModal = () => setIsModalOpen(true);
+  const handleOpenModal = (userId) => {
+    setSelectedUserId(userId);
+    setIsModalOpen(true);
+  };
 
-  // Función para cerrar el modal
+  const handleDelete = () => {
+    if (selectedUserId) {
+      deleteUser(selectedUserId);
+      setIsModalOpen(false);
+    }
+  };
+
   const handleCloseModal = () => setIsModalOpen(false);
 
 
-
   useEffect(() => {
-
-
-  }, [getData, navigate]);
+    getData()
+  }, [getData]);
 
   const processData = (users) =>
     users.map((user) => ({
@@ -45,24 +51,6 @@ const UsersCards = () => {
 
   const processedData = processData(data);
 
-  const deleteUser = async (userId) => {
-    try {
-      const response = await axios.delete(`http://192.168.0.246:3000/qr-generation/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.status === 200) {
-        getData();
-        toast.success('Usuario eliminado correctamente');
-      }
-    } catch (error) {
-      console.error('Error al eliminar usuario:', error);
-      toast.error('Hubo un error al eliminar el usuario');
-    }
-  };
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#191d22] via-[#264853] to-[#396c7a] p-6">
@@ -78,12 +66,12 @@ const UsersCards = () => {
       />
       <header className="p-4 mb-6 flex justify-between items-center">
         <img
-          src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678c8b4f&is=678b39cf&hm=bcd1d21432523dcfab7efac3fba83311d00845d1e0cef2fb9f4bb3b8d39cc51c&=&format=webp&quality=lossless"
+          src="image/logo_md.webp"
           alt="Logo"
           className="h-12 w-auto rounded-lg"
         />
         <button
-          onClick={logout}
+          onClick={logoutUser}
           className="bg-white text-white p-2 rounded-lg  transition-colors"
           aria-label="Logout"
         >
@@ -95,7 +83,7 @@ const UsersCards = () => {
         </button>
       </header>
   
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-24 2xl:gap-28">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-24 2xl:gap-28 ">
         {processedData.length > 0 ? (
           processedData.map((user) => (
             <div 
@@ -126,7 +114,7 @@ const UsersCards = () => {
                       <svg className="transition-all transform active:translate-y-2"  xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"><path fill="white" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"/></svg>
                       </button> */}
                     <button
-                      onClick={handleOpenModal}  // Abre el modal cuando se hace clic
+                      onClick={() => handleOpenModal(user.qrId)}
                       className="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
                       aria-label="Delete user"
                     >
@@ -153,10 +141,7 @@ const UsersCards = () => {
               Cancelar
                           </button>
                           <button
-                            onClick={() => { 
-                              deleteUser(user.qrId),
-                              handleCloseModal()
-                            }}
+                            onClick={handleDelete}
                             className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
                           >
               Eliminar
@@ -258,7 +243,23 @@ const UsersCards = () => {
             </div>
           ))
         ) : (
-          <p className="text-center text-gray-400 col-span-full">No hay datos disponibles.</p>
+          <div className='flex flex-col items-center w-full col-span-12'>
+            <img
+              src="image/not_found.webp"
+              className="h-[30vh] rounded-lg mt-6 md:h-[50vh] 2xl:h-[35vh] w-auto"
+            />
+            <p className="text-center text-xl text-white">No hay datos disponibles.</p>
+          </div>
+          // <div className="absolute inset-44 flex justify-center items-center">
+          //   <div className="flex flex-col justify-center items-center rounded-lg p-6 h-[40vh]  2xl:w-[60vw] md-w-[60vw] w-[80vw]">
+          //     <img
+          //       src="image/not_found.webp"
+          //       className="h-[50vh] rounded-lg mt-6 md:h-[50vh] 2xl:h-[35vh] w-auto"
+          //     />
+          //     <p className="text-center text-xl text-white">No hay datos disponibles.</p>
+          //   </div>
+          // </div>
+          
         )}
       </div>
     </div>

@@ -1,33 +1,25 @@
-import { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import useAuthStore from '../store/authStore';
-import { toast, ToastContainer } from 'react-toastify';
+import {  ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import useAuthStore from '../store/authStore';
+import {  useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const {login} = useAuthStore();
-  const token = useAuthStore(state => state.token)
+  const {loginUser} = useAuthStore();
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    login(data);
+    loginUser(data);
+  }
 
-  };
-
-  useEffect(() => {
-    if (token) {
-      navigate('/users')
-      toast.success("Usuario eliminado correctamente");
-    }
-  }, [navigate, token])
   
   return (
     <div className="min-h-screen p-4 flex items-center justify-center bg-gradient-to-br from-[#191d22] via-[#264853] to-[#396c7a]">
-        <ToastContainer
+      <ToastContainer
         position="top-center"
         autoClose={2000}
         newestOnTop
@@ -39,7 +31,6 @@ const Login = () => {
       />
       <div className="flex flex-col 2xl:flex-row md:flex-row justify-around 2xl:flex items-center md:flex 2xl:w-[60vw] md:w-[60vw] w-[90vw]">
         <div className=" bg-[#ddeef0] bg-opacity-10 backdrop-filter backdrop-blur-2xl 2xl:ml-28 m-0 md:m-[0px] rounded-2xl shadow-2xl w-full 2xl:w-[40%] md:w-[50%] overflow-hidden">
-          {/* Logo and Title */}
           <div className="flex justify-center mt-4 items-center p-2 text-white text-center">
             <img
               src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678c8b4f&is=678b39cf&hm=bcd1d21432523dcfab7efac3fba83311d00845d1e0cef2fb9f4bb3b8d39cc51c&=&format=webp&quality=lossless"
@@ -48,7 +39,6 @@ const Login = () => {
             />
           </div>
           <h2 className="text-2xl text-center text-white mt-2 font-semibold">Bienvenido</h2>
-          {/* Login Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="p-8">
             <div className="mb-6">
               <label htmlFor="userName" className="block text-sm font-medium text-white mb-2">
@@ -57,15 +47,15 @@ const Login = () => {
               <input
                 id="userName"
                 type="text"
-                {...register("userName", {
-                  required: "El correo electrónico es obligatorio",
+                {...register('userName', {
+                  required: 'El correo electrónico es obligatorio',
                   pattern: {
                     value: /^[a-zA-Z0-9._-]{3,16}$/,
-                    message: "Dirección de correo inválida"
+                    message: 'Dirección de correo inválida'
                   }
                 })}
                 className="w-full px-4 py-3 rounded-lg border-2 border-[#396c7a] bg-white bg-opacity-20 text-white placeholder-gray-300 focus:border-[#5a9eb3] focus:ring focus:ring-[#5a9eb3] focus:ring-opacity-50 transition duration-200"
-                placeholder="juan"
+                placeholder="Example2025"
               />
               {errors.email && <p className="mt-1 text-sm text-white">{errors.email.message}</p>}
             </div>
@@ -77,8 +67,8 @@ const Login = () => {
               <div className="relative">
                 <input
                   id="userPassword"
-                  type={showPassword ? "text" : "password"}
-                  {...register("userPassword", { required: "La contraseña es obligatoria" })}
+                  type={showPassword ? 'text' : 'password'}
+                  {...register('userPassword', { required: 'La contraseña es obligatoria' })}
                   className="w-full px-4 py-3 rounded-lg border-2 border-[#396c7a] bg-white bg-opacity-20 text-white placeholder-gray-300 focus:border-[#5a9eb3] focus:ring focus:ring-[#5a9eb3] focus:ring-opacity-50 transition duration-200"
                   placeholder="••••••••"
                 />
@@ -124,10 +114,8 @@ const Login = () => {
         </div>
         <hr className="bg-white w-[1px] md:h-[60vh] border-0 h-[0px] 2xl:h-[4ovh] opacity-50 md:ms-6 2xl:ms-20" />
         <div className="bg-[#ddeef0] bg-opacity-10 backdrop-filter backdrop-blur-lg  border-[#396c7a] w-[100%] 2xl:w-[30%] md:w-[40%] text-white p-8 shadow-xl text-center mx-auto my-8 rounded-2xl">
-          <h2 className="text-2xl font-semibold mb-4">¿Estás listo para crear un perfil para un ser querido?</h2>
-          <p className="text-lg mb-6">
-            Honra su memoria creando un perfil conmemorativo. Haz clic en el botón a continuación para comenzar.
-          </p>
+          <h2 className="text-2xl font-semibold mb-4">¿Listo para crear un recuerdo especial para tu ser querido?</h2>
+          <p className="text-lg mb-6 text-pretty">Honra su memoria creando una biografía conmemorativa llena de amor. Comparte su historia, logros y momentos inolvidables.</p>
           <button
             onClick={() => navigate('/crear-perfil')}
             className="px-8 py-2 bg-[#6ba7b8] h-[50px] text-white font-bold transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg hover:bg-[#5a9eb3]"
@@ -226,18 +214,18 @@ const Login = () => {
   //           </button>
   //         </form>
   //       </div>
-        // <div className="bg-black 2xl:border-s md:border-s borber-t border-white  w-[100%] 2xl:w-[30%] md:w-[40%]  text-white p-8  shadow-xl text-center mx-auto my-8">
-        //   <h2 className="text-2xl font-semibold mb-4">¿Estás listo para crear un perfil para un ser querido?</h2>
-        //   <p className="text-lg mb-6">
-        //     Honra su memoria creando un perfil conmemorativo. Haz clic en el botón a continuación para comenzar.
-        //   </p>
-        //   <button
-        //     onClick={() => navigate('/crear-perfil')}
-        //     className="px-8 py-2 bg-white h-[50px] text-black font-bold transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg"
-        //   >
-        //     Crear Perfil
-        //   </button>
-        // </div>
+  // <div className="bg-black 2xl:border-s md:border-s borber-t border-white  w-[100%] 2xl:w-[30%] md:w-[40%]  text-white p-8  shadow-xl text-center mx-auto my-8">
+  //   <h2 className="text-2xl font-semibold mb-4">¿Estás listo para crear un perfil para un ser querido?</h2>
+  //   <p className="text-lg mb-6">
+  //     Honra su memoria creando un perfil conmemorativo. Haz clic en el botón a continuación para comenzar.
+  //   </p>
+  //   <button
+  //     onClick={() => navigate('/crear-perfil')}
+  //     className="px-8 py-2 bg-white h-[50px] text-black font-bold transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg"
+  //   >
+  //     Crear Perfil
+  //   </button>
+  // </div>
   //     </div>
   //   </div>
   // );

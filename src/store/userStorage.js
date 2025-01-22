@@ -1,33 +1,32 @@
 import {create} from 'zustand';
-import Axios from 'axios';
-import useAuthStore from './authStore';
+import memoriesApi from '../api/memories.api';
 
-const axios = Axios.create({baseURL: `http://${import.meta.env.VITE_PUBLIC_HOST}:${import.meta.env.VITE_PUBLIC_PORT}`});
-
-const useUsersStore = create((set) => ({
+export const storeApi = (set, get) => ({
   data: [],
   getData: async () => {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${useAuthStore.getState().token}`;
-    await axios.get('/qr-generation')
+    await memoriesApi.get('/qr-generation')
       .then(({data: {result}}) => {
         set({data: result})
-        
       })
       .catch((error) => {
         console.log(error);
       });
   },
-  getQrIdentifies: async (Ididentifier) => {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${useAuthStore.getState().token}`;
-    await axios.get(`qr-generation/qr-data/${Ididentifier}`)
-    .then(({data: {result}}) => {
-      console.log(result)
-      // set({data: result})
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  deleteUser: async (userId) => {
+    await memoriesApi.delete(`/qr-generation/${userId}`)
+      .then(({data: {result}}) => {
+        console.log(get().data);
+        const data = get().data.filter(user => user.qrId !== result);
+        console.log(data);
+        set({data: data})
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
-}));
+})
+
+
+const useUsersStore = create(storeApi);
 
 export default useUsersStore;
