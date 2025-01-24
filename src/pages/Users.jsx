@@ -66,7 +66,7 @@ const UsersCards = () => {
       />
       <header className="p-4 mb-6 flex justify-between items-center">
         <img
-          src="image/logo_md.webp"
+          src="/public/image/logo_md.webp"
           alt="Logo"
           className="h-12 w-auto rounded-lg"
         />

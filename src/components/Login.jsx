@@ -33,7 +33,7 @@ const Login = () => {
         <div className=" bg-[#ddeef0] bg-opacity-10 backdrop-filter backdrop-blur-2xl 2xl:ml-28 m-0 md:m-[0px] rounded-2xl shadow-2xl w-full 2xl:w-[40%] md:w-[50%] overflow-hidden">
           <div className="flex justify-center mt-4 items-center p-2 text-white text-center">
             <img
-              src="https://media.discordapp.net/attachments/1321940814292713562/1329862600493895743/logo_md.png?ex=678c8b4f&is=678b39cf&hm=bcd1d21432523dcfab7efac3fba83311d00845d1e0cef2fb9f4bb3b8d39cc51c&=&format=webp&quality=lossless"
+              src="/public/image/logo_md.webp"
               alt="Logo"
               className="w-[50%] h-[10vh]"
             />
