@@ -1,6 +1,8 @@
 import {create} from 'zustand';
 import { AuthService } from '../services/auth.service';
 import { devtools, persist } from 'zustand/middleware';
+import { toast } from 'react-toastify'; // Importa react-toastify
+import 'react-toastify/dist/ReactToastify.css'; 
 
 export const storeApi = (set) => ({
   status: 'unauthorized',
@@ -13,6 +15,7 @@ export const storeApi = (set) => ({
     } catch (error) {
       console.log(error);
       set({status: 'unauthorized', token: undefined});
+      toast.error('Credenciales incorrectas, intenta nuevamente');
     }
   },
   logoutUser: () => {
