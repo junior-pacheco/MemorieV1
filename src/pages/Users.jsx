@@ -83,7 +83,7 @@ const UsersCards = () => {
         </button>
       </header>
   
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 lg:gap-24 2xl:gap-28 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  2xl:grid-cols-4 gap-6 lg:gap-24 2xl:gap-28 ">
         {processedData.length > 0 ? (
           processedData.map((user) => (
             <div 

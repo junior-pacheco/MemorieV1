@@ -3,7 +3,7 @@ import { Controller, useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 
-const QRScanner = () => {
+const MemoriesPage = () => {
   const { control, handleSubmit, reset } = useForm()
   const [previewImages, setPreviewImages] = useState([])
   const [previewVideos, setPreviewVideos] = useState([])
@@ -20,6 +20,7 @@ const QRScanner = () => {
   };
 
   const onSubmit = async (data) => {
+    console.log({data})
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('description', data.description)
@@ -36,6 +37,7 @@ const QRScanner = () => {
       }
     }
     try {
+      console.log({formData})
       const response = await axios.post('http://192.168.0.246:3000/qr-generation/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -403,4 +405,4 @@ const QRScanner = () => {
 
 };
 
-export default QRScanner;
+export default MemoriesPage;

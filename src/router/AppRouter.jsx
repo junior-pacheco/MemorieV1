@@ -2,10 +2,10 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import Login from '../components/Login';
-import Home from '../pages/Home';
 import ProfilePage from '../pages/ProfilePage';
 import UserRoutes from './UserRoutes';
+import Login from '../pages/LoginPage';
+import MemoriesPage from '../pages/MemoriesPage';
 
 const AppRouter = () => {
   return (
@@ -29,9 +29,8 @@ const AppRouter = () => {
           </PrivateRoute>
         }
       />
-      <Route path="/crear-perfil" element={<Home />} />
+      <Route path="/crear-perfil" element={<MemoriesPage />} />
       <Route path="/profile/:profileId" element={<ProfilePage />} />
-      <Route path="*" element={<div>404 - Página no encontrada</div>} />
     </Routes>
   );
 };
