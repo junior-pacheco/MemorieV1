@@ -40,12 +40,12 @@ const UsersCards = () => {
     users.map((user) => ({
       ...user,
       photos: user.images?.map((image) =>
-        image.replace('localhost', '192.168.0.246')
+        image.replace('localhost', '192.168.0.154')
       ) || [],
       videos: user.videos?.map((video) =>
         video.replace('localhost', '192.168.0.246')
       ) || [],
-      qr_code: user.qr_code?.replace('localhost', '192.168.0.246'),
+      qr_code: user.qr_code?.replace('localhost', '192.168.0.154'),
     }));
   
 

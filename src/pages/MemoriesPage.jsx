@@ -38,7 +38,7 @@ const MemoriesPage = () => {
     }
     try {
       console.log({formData})
-      const response = await axios.post('http://192.168.0.246:3000/qr-generation/upload', formData, {
+      const response = await axios.post('http://192.168.0.154:3000/qr-generation/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -347,9 +347,6 @@ const MemoriesPage = () => {
                                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer transition-all transform hover:scale-105 duration-300 rounded-lg shadow-lg"
                               />
                               {error && <p className="text-red-500 text-sm">{error.message}</p>} 
-                              {value.length > 0 && (
-                                <p className="text-blue-500 text-sm mt-2">Solo se puede subir un video</p>
-                              )}
                             </div>
                           )}
                         />
